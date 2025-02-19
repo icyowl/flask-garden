@@ -1,5 +1,6 @@
 import os
 from dotenv import load_dotenv
+import secrets
 from flask import Flask, render_template, redirect, url_for, session
 
 def create_app():
@@ -7,12 +8,11 @@ def create_app():
     app = Flask(__name__)
     # app.config['TESTING'] = True
 
-    dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
-    if os.path.isfile(dotenv_path):
-        load_dotenv(dotenv_path)
-        app.config['SECRET_KEY'] = os.environ.pop('SECRET_KEY')
-    else:
-        app.config['SECRET_KEY'] = 'dev'
+    # dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+    # load_dotenv(dotenv_path)
+
+
+    app.config['SECRET_KEY'] = secrets.token_hex()
 
     try:
         os.makedirs(app.instance_path)
