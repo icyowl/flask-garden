@@ -12,7 +12,8 @@ def create_app():
     # load_dotenv(dotenv_path)
 
 
-    app.config['SECRET_KEY'] = secrets.token_hex()
+    # app.config['SECRET_KEY'] = secrets.token_hex()
+    app.config['SECRET_KEY'] = 'dev'
 
     try:
         os.makedirs(app.instance_path)
