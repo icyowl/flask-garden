@@ -3,6 +3,20 @@ import os
 import secrets
 from flask import Flask, render_template, redirect, url_for, session
 
+
+def init_config(instance_path):
+    try:
+        os.makedirs(instance_path)
+    except OSError:
+        pass
+    fp = os.path.join(instance_path, 'config.py')
+    if not os.path.isfile(fp):
+        with open(fp, 'w') as f:
+            s_key = secrets.token_hex(16)
+            s = f'SECRET_KEY="{s_key}"'
+            f.write(s)
+
+
 def create_app():
 
     app = Flask(__name__, instance_relative_config=True)
@@ -11,16 +25,9 @@ def create_app():
     # dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
     # load_dotenv(dotenv_path)
 
+    init_config(app.instance_path)
 
-    # app.config['SECRET_KEY'] = secrets.token_hex()
-    app.config['SECRET_KEY'] = 'dev'
     app.config.from_pyfile('config.py', silent=True)
-
-    try:
-        os.makedirs(app.instance_path)
-    except OSError:
-        pass
-
     app.config['DATABASE'] = os.path.join(app.instance_path, 'user.sqlite')
 
     from . import db
