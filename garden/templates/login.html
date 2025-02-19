@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="mt-5 text-center">
+    <h1 class="h3 mb-4 font-weight-normal">Icyow's Garden</h1>
+
+    <form method="POST"> 
+      {{ form.csrf_token }} 
+      <div class="mb-2">
+        {{ form.username(size=24, placeholder="Your Name") }}
+      </div>
+      <div class="mb-3">
+        {{ form.password(size=24, placeholder="Password") }}
+      </span>
+        </div>
+      <input class="btn btn-outline-secondary" type="submit" value="Sign in">
+    </form>
+
+    <div class="mt-2 text-danger">
+      {% with messages = get_flashed_messages() %}
+        {{ messages[0] }}
+      {% endwith %}
+    </div>
+
+  </div>
+{% endblock %}
