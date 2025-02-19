@@ -6,7 +6,7 @@ def main():
     conn = sqlite3.connect('instance/user.sqlite')
     cur = conn.cursor()
     cur.executescript(
-        f"""
+        """
         DROP TABLE IF EXISTS user;
 
         CREATE TABLE user (
