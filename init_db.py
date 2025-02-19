@@ -3,10 +3,6 @@ import sqlite3
 
 
 def main():
-    try:
-        os.makedirs('instance')
-    except OSError:
-        pass
 
     conn = sqlite3.connect('instance/user.sqlite')
     cur = conn.cursor()

@@ -8,6 +8,12 @@ def create_app():
     load_dotenv(dotenv_path)
 
     app = Flask(__name__)
+
+    try:
+        os.makedirs(app.instance_path)
+    except OSError:
+        pass
+
     # app.config['TESTING'] = True
     app.config['SECRET_KEY'] = os.environ.pop('SECRET_KEY')
     app.config['DATABASE'] = os.path.join(app.instance_path, 'user.sqlite')
