@@ -31,7 +31,7 @@ def create_app():
     def index():
         if not 'user_id' in session:
             return redirect(url_for('auth.login'))
-        sk = app.config['SECRET_KEY']
+        sk = os.environ.pop('SECRET_KEY')
         return render_template('index.html', sk=sk)
 
     return app
