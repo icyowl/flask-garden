@@ -5,7 +5,7 @@ from flask import Flask, render_template, redirect, url_for, session
 
 def create_app():
 
-    app = Flask(__name__)
+    app = Flask(__name__, instance_relative_config=True)
     # app.config['TESTING'] = True
 
     # dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
@@ -14,6 +14,7 @@ def create_app():
 
     # app.config['SECRET_KEY'] = secrets.token_hex()
     app.config['SECRET_KEY'] = 'dev'
+    app.config.from_pyfile('config.py', silent=True)
 
     try:
         os.makedirs(app.instance_path)
